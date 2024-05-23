@@ -7,15 +7,37 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Implementation of OutputStrategy that outputs data to a file.
+ * Data for each label is written to a separate file in the specified base directory.
+ *
+ * @author [Luqmaan Sediq]
+ * @version 1.0
+ */
+
 public class FileOutputStrategy implements OutputStrategy {
     private String baseDirectory; // Replaced all instances of "BaseDirectory" var with "baseDirectory"
 
     public final ConcurrentHashMap<String, String> fileMap = new ConcurrentHashMap<>(); // Replaced all instances of "file_map" with "fileMap"
 
+    /**
+     * Constructs a FileOutputStrategy with the specified base directory.
+     *
+     * @param baseDirectory the base directory where files will be stored
+     */
     public FileOutputStrategy(String baseDirectory) { //Replaced all instances of "fileOutputStrategy" with "FileOutputStrategy"
         this.baseDirectory = baseDirectory; // Removed blank line above this line
     }
 
+    /**
+     * Outputs the data for the specified patient to a file with its label, in the base directory.
+     *
+     * @param patientId the ID of the patient
+     * @param timestamp the timestamp of the data
+     * @param label the label for the data
+     * @param data the data to be output
+     * @throws IOException if an I/O error occurs when writing to the file
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         try {
