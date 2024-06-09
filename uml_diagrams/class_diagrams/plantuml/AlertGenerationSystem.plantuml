@@ -1,0 +1,24 @@
+@startuml
+
+class AlertGenerator {
+  + void evaluateData(data PatientData)
+  + void triggerAlert(Alert)
+}
+
+class Alert {
+  - String patientId
+  - String condition
+  - long timestamp
+  + getter methods
+  + setter methods
+
+}
+
+class AlertManager {
+  + void sendAlert(Alert)
+}
+
+AlertGenerator --> Alert : creates
+AlertManager --> Alert : manages
+
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+
+class DataStorage {
+  - Map<String, PatientData> storage
+  + void storeData(PatientData data)
+  + PatientData retrieveData(String patientId)
+  + void deleteData(String patientId)
+}
+
+class PatientData {
+  - String patientId
+  - List<VitalSign> vitalSigns
+  - List<MedicalRecord> medicalHistory
+  + String getPatientId()
+  + List<VitalSign> getVitalSigns()
+  + List<MedicalRecord> getMedicalHistory()
+}
+
+class DataRetriever {
+  - List<String> authorizedUsers
+  + PatientData fetchData(String patientId)
+  + boolean isAuthorized(String userId)
+}
+
+DataStorage --> PatientData : stores
+DataRetriever --> DataStorage : fetches from
+PatientData ..> DataStorage : uses
+PatientData ..> DataRetriever : uses
+
+@enduml
+
+

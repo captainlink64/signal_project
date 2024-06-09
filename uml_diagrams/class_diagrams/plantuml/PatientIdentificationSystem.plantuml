@@ -1,0 +1,24 @@
+@startuml
+
+class PatientIdentifier {
+  - List<String> patientIds
+  + PatientRecord matchPatientId(String dataId)
+  + PatientRecord getPatientRecord(String patientId)
+}
+
+class PatientRecord {
+  - String patientId
+  - String name
+  - Date DateOfBirth
+  - List<MedicalRecord> medicalHistory
+}
+
+class IdentityManager {
+  + void checkPatientData(String dataId)
+  + void updatePatientRecord(PatientRecord record)
+}
+
+PatientIdentifier ..> PatientRecord : fetches information
+IdentityManager .> PatientRecord : checks + resolves conflicts
+
+@enduml

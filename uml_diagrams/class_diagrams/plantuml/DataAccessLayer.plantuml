@@ -1,0 +1,34 @@
+@startuml
+
+interface DataListener {
+  + void listen()
+}
+
+class TCPDataListener {
+  + void listen()
+}
+
+class WebSocketDataListener {
+  + void listen()
+}
+
+class FileDataListener {
+  + void listen()
+}
+
+class DataParser {
+  + ParsedData parse(String rawData)
+}
+
+class DataSourceAdapter {
+  + void process(StandardizedData data)
+}
+
+DataListener <|.. TCPDataListener
+DataListener <|.. WebSocketDataListener
+DataListener <|.. FileDataListener
+
+DataParser --> DataSourceAdapter : passes standardized data
+
+
+@enduml
