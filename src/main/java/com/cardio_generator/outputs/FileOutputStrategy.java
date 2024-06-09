@@ -20,6 +20,8 @@ public class FileOutputStrategy implements OutputStrategy {
 
     public final ConcurrentHashMap<String, String> fileMap = new ConcurrentHashMap<>(); // Replaced all instances of "file_map" with "fileMap"
 
+    //TODO: write UML descriptions
+
     /**
      * Constructs a FileOutputStrategy with the specified base directory.
      *
