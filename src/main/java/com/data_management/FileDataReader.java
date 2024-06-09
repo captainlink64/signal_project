@@ -10,15 +10,23 @@ public class FileDataReader implements DataReader {
 
     @Override
     public void readData(DataStorage dataStorage, String directoryPath) throws IOException {
-        Files.walk(Paths.get(directoryPath))
-                .filter(Files::isRegularFile)
-                .forEach(filePath -> {
-                    try (Reader reader = new FileReader(filePath.toFile())) {
-                        parseData(reader, dataStorage, 0);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+        try {
+            Files.walk(Paths.get(directoryPath))
+                    .filter(Files::isRegularFile)
+                    .forEach(filePath -> {
+                        try (Reader reader = new FileReader(filePath.toFile())) {
+                            parseData(reader, dataStorage, 0);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+        } catch (RuntimeException e) {
+            if (e.getCause() instanceof IOException) {
+                throw (IOException) e.getCause();
+            } else {
+                throw e;
+            }
+        }
     }
 
     @Override
