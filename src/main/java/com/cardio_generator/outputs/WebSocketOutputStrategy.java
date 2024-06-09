@@ -1,6 +1,7 @@
 package com.cardio_generator.outputs;
 
 import org.java_websocket.WebSocket;
+import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
@@ -31,18 +32,23 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         }
 
         @Override
-        public void onOpen(WebSocket conn, org.java_websocket.handshake.ClientHandshake handshake) {
-            System.out.println("New connection: " + conn.getRemoteSocketAddress());
+        public void onOpen(WebSocket conn, ClientHandshake handshake) {
+            System.out.println("New connection from " + conn.getRemoteSocketAddress().getAddress().getHostAddress());
         }
 
         @Override
         public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-            System.out.println("Closed connection: " + conn.getRemoteSocketAddress());
+            System.out.println("Closed " + conn.getRemoteSocketAddress().getAddress().getHostAddress() + " with exit code " + code + " additional info: " + reason);
         }
 
         @Override
         public void onMessage(WebSocket conn, String message) {
-            // Not used in this context
+            try {
+                // assumption: message format: "patientId, timestamp, label ,data"
+                conn.send(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         @Override

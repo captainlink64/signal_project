@@ -19,7 +19,7 @@ public class DataStorage {
      * Constructs a new instance of DataStorage, initializing the underlying storage
      * structure.
      */
-    public DataStorage() {
+    public DataStorage(Object dataReader) {
         this.patientMap = new HashMap<>();
     }
 
@@ -85,7 +85,8 @@ public class DataStorage {
     public static void main(String[] args) {
         // DataReader is not defined in this scope, should be initialized appropriately.
         // DataReader reader = new SomeDataReaderImplementation("path/to/data");
-        DataStorage storage = new DataStorage();
+        Object DataReader = new Object();
+        DataStorage storage = new DataStorage(DataReader);
 
         // Assuming the reader has been properly initialized and can read data into the
         // storage
